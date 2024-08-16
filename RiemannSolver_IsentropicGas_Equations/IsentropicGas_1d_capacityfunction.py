@@ -2,10 +2,10 @@
 # encoding: utf-8
 
 r"""
-One-dimensional isothermalgas
+One-dimensional isentropic gas
 =============================
 
-Solve the isothermalgas equations with varying-cross section:
+Solve the isentropic gas equations with varying-cross section:
 
 .. math::
     a\rho_t + (q)_x & = 0 \\
