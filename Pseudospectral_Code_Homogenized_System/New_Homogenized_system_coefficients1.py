@@ -9,7 +9,7 @@ def double_bracket(f):
         return integrate.quad(brace,0,y)[0] - mean_bracket
     return brack
 
-def C_values(a, dady, delta):
+def C_values(a, dady,p_0, delta):
     ainvsquared = lambda y: 1/a(y)**2
     ay_ainv = lambda y: ainvsquared(y)*dady(y)
     ainv = lambda y: 1/a(y)
@@ -17,7 +17,6 @@ def C_values(a, dady, delta):
     ainvsquared = lambda y: 1/a(y)**2
     db_ay_ainv = double_bracket(ay_ainv)
     db_a = double_bracket(a)
-    p_0 = 0.3
     A= lambda y: a(y)*p_0
     Ay=lambda y: dady(y)*p_0
     A_inv1 = lambda y: 1/A(y)

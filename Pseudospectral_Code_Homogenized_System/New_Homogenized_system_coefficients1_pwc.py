@@ -35,7 +35,7 @@ def double_bracket(f):
     
     return brack
 
-def C_values(a, dady, delta):
+def C_values(a, dady,p_0, delta):
     ainvsquared = lambda y: 1/a(y)**2
     ay_ainv = lambda y: ainvsquared(y) * dady(y)
     ainv = lambda y: 1/a(y)
