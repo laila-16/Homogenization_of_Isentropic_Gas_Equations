@@ -83,7 +83,7 @@ def C_values(a, dady,p_0, delta):
     C9=integrate.quad(integrand,0,1)[0]
 
 
-    integrand = lambda y: ainv(y)
+    integrand = lambda y: a(y)*A_inv2(y)
     C10=integrate.quad(integrand,0,1)[0]
 
 
@@ -113,41 +113,41 @@ def C_values(a, dady,p_0, delta):
     C15=integrate.quad(integrand,0,1)[0]
 
 
-    integrand = lambda y: a(y)*A_inv2(y)
-    C16=integrate.quad(integrand,0,1)[0]
-
-
     #<a>^2
     a2 = lambda y: a(y)**2
     avga=(1/delta)*integrate.quad(a,0,1)[0]
     avga2= (1/delta)*integrate.quad(a2,0,1)[0]
     ainvavg = (1/delta)*integrate.quad(ainv,0,1)[0]
-    return C1, C2, C3, C4, C5, C6, C7, C8, C9,C10,C11,C12,C13,C14,C15,C16,avga,ainvavg
+    return C1, C2, C3, C4, C5, C6, C7, C8, C9,C10,C11,C12,C13,C14,C15,avga,ainvavg
     
     
-def Homogenized_system_coef(C1, C2, C3, C4, C5, C6, C7, C8, C9,C10,C11,C12,C13,C14,C15,C16,avga,ainvavg, p_0, P1, P11, delta):
+def Homogenized_system_coef(C1, C2, C3, C4, C5, C6, C7, C8, C9,C10,C11,C12,C13,C14,C15,avga,ainvavg, p_0, P1, P11, delta):
     r1 = - 1/avga
-    r2 = delta* (-C1/(C10* avga**2))
-    r3 = delta* (2*C13/(C10*avga))
-    r4 = delta**2 *(-C3/(P1*avga**2) + (4*C13**2)/(C10*P1*avga**2) +(4*C13*C14)/(C10*P1*avga**2) - (C13*P11)/(P1**2 * avga**2))
-    r5 = delta**2 *((C9)/(C10*avga**3) - C2/(C10*avga**2))
-    r5b = delta**2 *((C9)/(C10*avga**3) - C2/(C10*avga**2))*(-1/avga)
-    r6 = delta**2 * (-2*C3/(C10*avga))
-    r7 = delta**2 *(((-2*C15+2*C8)/(C10*avga**2)) -(2*C1*C14)/(C10**2 * avga**2)-(2*C4)/(C10*avga))
-    r8 = delta**2 * (((-2*C1*C13)/(C10**2 * avga**2))- 2*C1*C14/(C10**2 * avga**2) -2*C15/(C10*avga**2) +2*C8/(C10*avga**2) -2*C4/(C10*avga) )
-    beta1 = -P1 /C10
-    beta2 = delta* 2*(-C13-C14)/(C10*avga) 
-    beta3 = -delta* P11/C10
-    beta4 = delta* C1*P1/(avga*C10**2)
-    beta5 = delta* (2*C3+2*C16)/(C10*avga)
-    beta6 = delta**2 *((2*C1*C13 + 2*C1*C14)/(C10**2 * avga**2)+(2*C15-C8)/(C10*avga**2))
-    beta7 = delta**2 * (-(2*C1*C13)/(C10**2 * avga**2)-(2*C4/C10*avga)+(4*C7/C10**2 *avga))
-    beta8 = delta**2 *((C12-3*C5+4*C6)/(C10**2)+(4*C13**2 +4*C13*C14)/(C10**2 *avga))
-    beta9 = delta**2 *((2*C7*P1/C10**3)-(2*C1*C13*P1)/(avga*C10**3)+(C1*P11)/(avga*C10**2))
-    beta10 = delta**2 *(C1*P11/(avga*C10**2))
-    beta11= delta**2 *(C11*P1/(avga*C10**3) - C2*P1/(avga*C10**2))
-    beta11b = delta**2 *(C11*P1/(avga*C10**3) - C2*P1/(avga*C10**2))*(-P1/ainvavg)
+    r2 = delta* (-C1/(ainvavg* avga**2))
+    r3 = delta* (2*C13/(ainvavg*avga))
+    r4 = delta**2 *(-C3/(P1*avga**2) + (4*C13**2)/(ainvavg*P1*avga**2) +(4*C13*C14)/(ainvavg*P1*avga**2) - (C13*P11)/(P1**2 * avga**2))
+    r5 = delta**2 *((C9)/(ainvavg*avga**3) - C2/(ainvavg*avga**2))
+    r5b = delta**2 *((C9)/(ainvavg*avga**3) - C2/(ainvavg*avga**2))*(-1/avga)
+    r6 = delta**2 * (-2*C3/(ainvavg*avga))
+    r7 = delta**2 *(((2*C8)/(ainvavg*avga**2)) -(2*C4)/(ainvavg*avga))
+    r8 = delta**2 * (((-2*C1*C13)/(ainvavg**2 * avga**2))+2*C8/(ainvavg*avga**2) -2*C4/(ainvavg*avga) )
+    beta1 = -P1 /ainvavg
+    beta2 = delta* 2*(-C13-C14)/(ainvavg*avga) 
+    beta3 = -delta* P11/ainvavg
+    beta4 = delta* C1*P1/(avga*ainvavg**2)
+    beta5 = delta* (2*C3+2*C10)/(ainvavg*avga)
+    beta6 = delta**2 *((2*C1*C13 )/(ainvavg**2 * avga**2)+(-C8)/(ainvavg*avga**2))
+    beta7 = delta**2 * (-(2*C1*C13)/(ainvavg**2 * avga**2)-(2*C4/ainvavg*avga)+(4*C7/ainvavg**2 *avga))
+    beta8 = delta**2 *((C12-3*C5+4*C6)/(ainvavg**2)+(4*C13**2 +4*C13*C14)/(ainvavg**2 *avga))
+    beta9 = delta**2 *((2*C7*P1/ainvavg**3)-(2*C1*C13*P1)/(avga*ainvavg**3)+(C1*P11)/(avga*ainvavg**2))
+    beta10 = delta**2 *(C1*P11/(avga*ainvavg**2))
+    beta11= delta**2 *(C11*P1/(avga*ainvavg**3) - C2*P1/(avga*ainvavg**2))
+    beta11b = delta**2 *(C11*P1/(avga*ainvavg**3) - C2*P1/(avga*ainvavg**2))*(-P1/ainvavg)
     return r1, r2, r3, r4, r5,r5b, r6,r7,r8, beta1, beta2, beta3, beta4, beta5, beta6, beta7,beta8, beta9, beta10, beta11,beta11b
+
+
+
+
 
 
 
