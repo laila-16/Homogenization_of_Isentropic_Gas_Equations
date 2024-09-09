@@ -2,16 +2,16 @@
 # encoding: utf-8
 
 r"""
-One-dimensional isentropic gas
+One-dimensional isothermalgas
 =============================
 
 Solve the isentropic gas equations with varying-cross section:
 
 .. math::
-    a\rho_t + (q)_x & = 0 \\
-    q_t + (q^2 /(a\rho) +a p(\rho))_x & = a_x p(\rho).
+    a\rho_t + (a\rho u)_x & = 0 \\
+    (a\rho u)_t + ((a\rho u)^2 /(a\rho) +a p(\rho))_x & = a_x p(\rho).
 
-Here p is the pressure where p=kappa \rho^gamma, q is the flux, a is the cross section area,
+Here p is the pressure where p=kappa \rho^gamma, a\rho u is the flux, a is the cross section area,
 and :math:`\rho` is the density. 
 
 The initial condition is a Gaussian and the boundary conditions are periodic.
@@ -23,10 +23,10 @@ import numpy as np
 from clawpack import riemann
 import RS_variable_coeff
 
-def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
+def setup(use_petsc=False, kernel_language='Fortran', solver_type='classic',
           outdir='./_output', ptwise=False, weno_order=5, order=2,
           time_integrator='SSP104', disable_output=False, output_style=1,
-          L=1600, mx=280000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
+          L=1600, mx=1000000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
 
     if use_petsc:
         import clawpack.petclaw as pyclaw
@@ -120,14 +120,14 @@ def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
     return claw
 
 def a_function(x):
-    return np.piecewise(x, [x - np.floor(x)< 0.5, x - np.floor(x) >= 0.5], [1/4, 3/4])
+    return np.piecewise(x, [x - np.floor(x)< 0.5, x - np.floor(x) >= 0.5], [1/2, 3/4])
 
 def a_function_prime(x):
     return 0
 
 def init(state, xc):
-    A= 1/20
-    rho0 = 0.3 + A*np.exp(-1*(xc/8)**2)
+    A= 1/40
+    rho0 = 0.3 + A*np.exp(-1*(xc/10)**2)
     q0 = np.zeros_like(rho0)
     state.q[0, :] = rho0.copy()
     state.q[1, :] = q0.copy()
