@@ -120,14 +120,14 @@ def setup(use_petsc=False, kernel_language='Fortran', solver_type='classic',
     return claw
 
 def a_function(x):
-    return np.piecewise(x, [x - np.floor(x)< 0.5, x - np.floor(x) >= 0.5], [1/2, 3/4])
+    return np.piecewise(x, [x - np.floor(x)< 0.5, x - np.floor(x) >= 0.5], [1/4, 3/4])
 
 def a_function_prime(x):
     return 0
 
 def init(state, xc):
-    A= 1/40
-    rho0 = 0.3 + A*np.exp(-1*(xc/10)**2)
+    A= 1/20
+    rho0 = 0.3 + A*np.exp(-1*(xc/8)**2)
     q0 = np.zeros_like(rho0)
     state.q[0, :] = rho0.copy()
     state.q[1, :] = q0.copy()
@@ -165,7 +165,7 @@ def sharpclaw_source_step(solver,state,dt):
 
     dq = np.empty(q.shape)
     dq[0,:] = 0.*u1
-    dq[1,:] = 0.*u2#dt* a_function_prime(xc)*1*u1**1.4
+    dq[1,:] = 0.*u2
     return dq
 
 
