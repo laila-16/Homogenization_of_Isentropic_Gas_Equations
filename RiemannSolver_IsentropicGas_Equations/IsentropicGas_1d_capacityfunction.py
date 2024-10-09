@@ -140,7 +140,7 @@ def classic_source_step(solver,state,dt):
     xc = state.grid.x.centers
     
     def S(u1,u2,x):
-        return  0.*u1, 0.*u2 #a_function_prime(x)*1*u1**1.4
+        return  0.*u1, 0.*u2 
 
     #Get variables
     u1 = np.copy(q[0,:])
