@@ -88,20 +88,9 @@ def setup(use_petsc=False, kernel_language='Fortran', solver_type='classic',
     
     solver.cfl_desired = CFL
     solver.cfl_max = 1.0
-
-    #rho = 1.0   # Material density
-    #bulk = 1.0  # Material bulk modulus
-
-    #state.problem_data['rho'] = rho
-    #state.problem_data['bulk'] = bulk
-    #state.problem_data['zz'] = sqrt(rho*bulk)   # Impedance
-    #state.problem_data['cc'] = sqrt(bulk/rho)   # Sound speed
     
     xc = domain.grid.x.centers
     state.index_capa = 0
-    #beta = 100
-    #gamma = 0
-    #x0 = 0.75
     init(state, xc)
 
     solver.max_steps=5000000
