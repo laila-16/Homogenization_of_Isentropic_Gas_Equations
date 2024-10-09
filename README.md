@@ -10,9 +10,9 @@ The used commands to run the simulations of finite volume solution:
    
    For piece-wise constant case:
    ```
-   python3 IsentropicGas_1d_pwc.py iplot=1
+   mpirun -np 32 python3 IsentropicGas_1d_pwc.py htmlplot=1
    ```
    For sinusoidal case:
    ```
-   python3 IsentropicGas_1d_sin.py iplot=1
+   mpirun -np 32 python3 IsentropicGas_1d_sin.py htmlplot=1
    ```
