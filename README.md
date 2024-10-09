@@ -7,6 +7,7 @@ The used commands to run the simulations of finite volume solution:
    ```
 
 2. To generate the plots
+   
    For piece-wise constant case:
    ```
    python3 IsentropicGas_1d_pwc.py iplot=1
