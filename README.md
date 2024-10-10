@@ -4,7 +4,7 @@ In this repository, you can find all the codes used in the paper
 
 > Homogenized Equations for Isentropic Gas in a Pipe with Periodically Varying Cross-Section
 
-by Laila Busaleh and David I. Ketcheson.
+by Laila S. Busaleh and David I. Ketcheson.
 
 The directories contain the following:
 
