@@ -17,3 +17,6 @@ In this repository, you will find all the codes used in the paper Homogenized Eq
    ```
    mpirun -np 32 python3 IsentropicGas_1d_sin.py htmlplot=1
    ```
+
+
+To reproduce the homogenized system soltuion you can run the code included in Pseudospectral_Code_Homogenized_System .
