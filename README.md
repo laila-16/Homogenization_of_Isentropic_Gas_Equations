@@ -1,4 +1,5 @@
 # Homogenization of Isentropic Gas Equations
+
 In this repository, you can find all the codes used in the paper 
 
 > Homogenized Equations for Isentropic Gas in a Pipe with Periodically Varying Cross-Section
@@ -29,3 +30,6 @@ Use the following commands to run the simulations for the finite volume solution
    ```
    mpirun -np 32 python3 IsentropicGas_1d_sin.py htmlplot=1
    ```
+
+
+To reproduce the homogenized system soltuion you can run the code included in Pseudospectral_Code_Homogenized_System .
