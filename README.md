@@ -32,4 +32,4 @@ Use the following commands to run the simulations for the finite volume solution
    ```
 
 
-To reproduce the homogenized system soltuion you can run the code included in Pseudospectral_Code_Homogenized_System .
+To reproduce the homogenized system solution you can run the code included in Pseudospectral_Code_Homogenized_System .
