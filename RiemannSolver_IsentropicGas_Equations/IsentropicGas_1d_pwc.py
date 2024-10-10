@@ -5,13 +5,13 @@ r"""
 One-dimensional isothermalgas
 =============================
 
-Solve the isothermalgas equations with varying-cross section:
+Solve the isentropic gas equations with varying-cross section:
 
 .. math::
-    a\rho_t + (q)_x & = 0 \\
-    q_t + (q^2 /(a\rho) +a p(\rho))_x & = a_x p(\rho).
+    a\rho_t + (a\rho u)_x & = 0 \\
+    (a\rho u)_t + ((a\rho u)^2 /(a\rho) +a p(\rho))_x & = a_x p(\rho).
 
-Here p is the pressure where p=kappa \rho^gamma, q is the flux, a is the cross section area,
+Here p is the pressure where p=kappa \rho^gamma, a\rho u is the flux, a is the cross section area,
 and :math:`\rho` is the density. 
 
 The initial condition is a Gaussian and the boundary conditions are periodic.
@@ -26,7 +26,7 @@ import RS_variable_coeff
 def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
           outdir='./_output', ptwise=False, weno_order=5, order=2,
           time_integrator='SSP104', disable_output=False, output_style=1,
-          L=1600, mx=1000000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
+          L=600, mx=1000, bc='wall', tmax=100.0, num_output_times=50, CFL=0.5):
 
     if use_petsc:
         import clawpack.petclaw as pyclaw
@@ -88,9 +88,20 @@ def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
     
     solver.cfl_desired = CFL
     solver.cfl_max = 1.0
+
+    #rho = 1.0   # Material density
+    #bulk = 1.0  # Material bulk modulus
+
+    #state.problem_data['rho'] = rho
+    #state.problem_data['bulk'] = bulk
+    #state.problem_data['zz'] = sqrt(rho*bulk)   # Impedance
+    #state.problem_data['cc'] = sqrt(bulk/rho)   # Sound speed
     
     xc = domain.grid.x.centers
     state.index_capa = 0
+    #beta = 100
+    #gamma = 0
+    #x0 = 0.75
     init(state, xc)
 
     solver.max_steps=5000000
@@ -129,7 +140,7 @@ def classic_source_step(solver,state,dt):
     xc = state.grid.x.centers
     
     def S(u1,u2,x):
-        return  0.*u1, 0.*u2
+        return  0.*u1, 0.*u2 #a_function_prime(x)*1*u1**1.4
 
     #Get variables
     u1 = np.copy(q[0,:])
@@ -154,7 +165,7 @@ def sharpclaw_source_step(solver,state,dt):
 
     dq = np.empty(q.shape)
     dq[0,:] = 0.*u1
-    dq[1,:] = 0.*u2
+    dq[1,:] = 0.*u2#dt* a_function_prime(xc)*1*u1**1.4
     return dq
 
 
