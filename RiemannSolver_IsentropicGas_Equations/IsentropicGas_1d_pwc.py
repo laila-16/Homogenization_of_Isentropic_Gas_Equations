@@ -23,10 +23,10 @@ import numpy as np
 from clawpack import riemann
 import RS_variable_coeff
 
-def setup(use_petsc=False, kernel_language='Fortran', solver_type='classic',
+def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
           outdir='./_output', ptwise=False, weno_order=5, order=2,
           time_integrator='SSP104', disable_output=False, output_style=1,
-          L=1600, mx=1000000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
+          L=600, mx=10000, bc='wall', tmax=100.0, num_output_times=50, CFL=0.5):
 
     if use_petsc:
         import clawpack.petclaw as pyclaw
