@@ -21,14 +21,21 @@ Use the following commands to run the simulations for the finite volume solution
    ```
 
 2. To generate the plots
-   
+   Open python session 
+   ```
+   Ipython
+   ```
+
    For piece-wise constant case:
    ```
-   mpirun -np 32 python3 IsentropicGas_1d_pwc.py htmlplot=1
+   from IsentropicGas_1d_pwc import run_and_plot
+   run_and_plot()
+
    ```
    For sinusoidal case:
    ```
-   mpirun -np 32 python3 IsentropicGas_1d_sin.py htmlplot=1
+   from IsentropicGas_1d_sin import run_and_plot
+   run_and_plot()
    ```
 
 
