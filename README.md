@@ -21,7 +21,8 @@ Use the following commands to run the simulations for the finite volume solution
    ```
 
 2. To generate the plots
-   Open python session 
+
+   In the same directory open a Python session
    ```
    Ipython
    ```
@@ -30,7 +31,6 @@ Use the following commands to run the simulations for the finite volume solution
    ```
    from IsentropicGas_1d_pwc import run_and_plot
    run_and_plot()
-
    ```
    For sinusoidal case:
    ```
