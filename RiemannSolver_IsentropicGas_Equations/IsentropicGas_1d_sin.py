@@ -204,8 +204,9 @@ def setplot(plotdata):
 def run_and_plot(**kwargs):
     claw = setup(kwargs)
     claw.run()
-    from clawpack.pyclaw import plot
-    plot.interactive_plot(setplot=setplot)
+    from clawpack.petclaw import plot
+    #plot.interactive_plot(setplot=setplot) use this command for interactive plots
+    plot.html_plot(setplot=setplot) #to create HTML plots
 
 if __name__ == "__main__":
     from clawpack.pyclaw.util import run_app_from_main
