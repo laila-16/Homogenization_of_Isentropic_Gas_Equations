@@ -23,7 +23,7 @@ import numpy as np
 from clawpack import riemann
 import RS_variable_coeff
 
-def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
+def setup(use_petsc=False, solver_type='classic',
           outdir='./_output', ptwise=False, weno_order=5, order=2,
           time_integrator='SSP104', disable_output=False, output_style=1,
           L=1600, mx=200000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
@@ -52,9 +52,6 @@ def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
         solver.dq_src = sharpclaw_source_step
     else:
         raise Exception('Unrecognized value of solver_type.')
-
-    solver.kernel_language = kernel_language
-
 
     x = pyclaw.Dimension(0., L/2., mx, name='x')
     domain = pyclaw.Domain(x)
@@ -212,11 +209,14 @@ def setplot(plotdata):
 
 
 def run_and_plot(**kwargs):
-    claw = setup(kwargs)
+    claw = setup(**kwargs)
     claw.run()
     from clawpack.petclaw import plot
     #plot.interactive_plot(setplot=setplot) use this command for interactive plots
-    plot.html_plot(setplot=setplot) #to create HTML plots
+    if kwargs.get("use_petsc") == True:
+        plot.html_plot(setplot=setplot,file_format="petsc") #to create HTML plots
+    else:
+        plot.html_plot(setplot=setplot,file_format="ascii") #to create HTML plots
 
 if __name__ == "__main__":
     from clawpack.pyclaw.util import run_app_from_main
