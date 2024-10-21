@@ -26,7 +26,7 @@ import RS_variable_coeff
 def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
           outdir='./_output', ptwise=False, weno_order=5, order=2,
           time_integrator='SSP104', disable_output=False, output_style=1,
-          L=1600, mx=100000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
+          L=1600, mx=200000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
 
     if use_petsc:
         import clawpack.petclaw as pyclaw
