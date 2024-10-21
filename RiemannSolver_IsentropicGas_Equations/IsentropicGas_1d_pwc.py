@@ -26,7 +26,7 @@ import RS_variable_coeff
 def setup(use_petsc=True, kernel_language='Fortran', solver_type='classic',
           outdir='./_output', ptwise=False, weno_order=5, order=2,
           time_integrator='SSP104', disable_output=False, output_style=1,
-          L=600, mx=10000, bc='wall', tmax=100.0, num_output_times=50, CFL=0.5):
+          L=1600, mx=100000, bc='wall', tmax=900.0, num_output_times=450, CFL=0.5):
 
     if use_petsc:
         import clawpack.petclaw as pyclaw
@@ -214,8 +214,9 @@ def setplot(plotdata):
 def run_and_plot(**kwargs):
     claw = setup(kwargs)
     claw.run()
-    from clawpack.pyclaw import plot
-    plot.interactive_plot(setplot=setplot)
+    from clawpack.petclaw import plot
+    #plot.interactive_plot(setplot=setplot) use this command for interactive plots
+    plot.html_plot(setplot=setplot) #to create HTML plots
 
 if __name__ == "__main__":
     from clawpack.pyclaw.util import run_app_from_main
